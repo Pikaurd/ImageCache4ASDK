@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		85BF82DC1AE0E62F00E000E0 /* ImageCache4ASDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 85BF82DB1AE0E62F00E000E0 /* ImageCache4ASDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		85BF82E21AE0E62F00E000E0 /* ImageCache4ASDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85BF82D61AE0E62F00E000E0 /* ImageCache4ASDK.framework */; };
 		85BF82E91AE0E62F00E000E0 /* ImageCache4ASDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BF82E81AE0E62F00E000E0 /* ImageCache4ASDKTests.swift */; };
 		85BF82F41AE0E6BF00E000E0 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BF82F21AE0E6BF00E000E0 /* Extension.swift */; };
@@ -28,7 +27,6 @@
 /* Begin PBXFileReference section */
 		85BF82D61AE0E62F00E000E0 /* ImageCache4ASDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ImageCache4ASDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		85BF82DA1AE0E62F00E000E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		85BF82DB1AE0E62F00E000E0 /* ImageCache4ASDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageCache4ASDK.h; sourceTree = "<group>"; };
 		85BF82E11AE0E62F00E000E0 /* ImageCache4ASDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImageCache4ASDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		85BF82E71AE0E62F00E000E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		85BF82E81AE0E62F00E000E0 /* ImageCache4ASDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache4ASDKTests.swift; sourceTree = "<group>"; };
@@ -99,7 +97,6 @@
 		85BF82D81AE0E62F00E000E0 /* ImageCache4ASDK */ = {
 			isa = PBXGroup;
 			children = (
-				85BF82DB1AE0E62F00E000E0 /* ImageCache4ASDK.h */,
 				85BF82F21AE0E6BF00E000E0 /* Extension.swift */,
 				85BF82F31AE0E6BF00E000E0 /* ImageCache.swift */,
 				85BF82D91AE0E62F00E000E0 /* Supporting Files */,
@@ -139,7 +136,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				85BF82DC1AE0E62F00E000E0 /* ImageCache4ASDK.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
