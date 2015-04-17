@@ -9,7 +9,7 @@
 import Foundation
 import AsyncDisplayKit
 
-class ImageCache: NSCache {
+public class ImageCache: NSCache {
     static let kDefaultTimeoutLengthInNanoSeconds = 10 * 1_000_000_000 as Int64
     
     private let downloadConcurrentQueue: dispatch_queue_t
@@ -19,7 +19,7 @@ class ImageCache: NSCache {
     
     private static let _SharedInstance = ImageCache()
     
-    class var sharedInstance: ImageCache {
+    public class var sharedInstance: ImageCache {
         return _SharedInstance
     }
     
@@ -50,11 +50,11 @@ class ImageCache: NSCache {
         
     }
     
-    func newASNetworkImageNode() -> ASNetworkImageNode {
+    public func newASNetworkImageNode() -> ASNetworkImageNode {
         return ASNetworkImageNode(cache: self, downloader: self)
     }
     
-    func clearCache() -> () {
+    public func clearCache() -> () {
         let fileManager = NSFileManager.defaultManager()
         dispatch_barrier_async(workingConcurrentQueue, { () -> Void in
             self.removeAllObjects()
@@ -71,7 +71,7 @@ class ImageCache: NSCache {
         })
     }
     
-    func clearCache(key: NSURL) -> () {
+    public func clearCache(key: NSURL) -> () {
         let fileManager = NSFileManager.defaultManager()
         dispatch_barrier_async(workingConcurrentQueue, { () -> Void in
             self.removeObjectForKey(key)
@@ -156,7 +156,7 @@ class ImageCache: NSCache {
 
 extension ImageCache: ASImageCacheProtocol {
     
-    func fetchCachedImageWithURL(
+    public func fetchCachedImageWithURL(
         URL: NSURL!
         , callbackQueue: dispatch_queue_t!
         , completion: ((CGImage!) -> Void)!
@@ -171,7 +171,7 @@ extension ImageCache: ASImageCacheProtocol {
 
 extension ImageCache: ASImageDownloaderProtocol {
     
-    func downloadImageWithURL(
+    public func downloadImageWithURL(
         URL: NSURL!
         , callbackQueue: dispatch_queue_t!
         , downloadProgressBlock: ((CGFloat) -> Void)!
@@ -193,7 +193,7 @@ extension ImageCache: ASImageDownloaderProtocol {
         return .None // not implement cancle method
     }
     
-    func cancelImageDownloadForIdentifier(downloadIdentifier: AnyObject!) {
+    public func cancelImageDownloadForIdentifier(downloadIdentifier: AnyObject!) {
         debugLog("[Not implement] Do nothing")
     }
 }
