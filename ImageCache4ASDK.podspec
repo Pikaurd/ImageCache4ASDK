@@ -5,11 +5,11 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/Pikaurd/ImageCache4ASDK"
   s.license      = "MIT"
   s.author             = "Pikaurd"
-  s.platform     = :ios, "7.0"
+  s.platform     = :ios, "8.0"
   s.source       = { :git => "https://github.com/Pikaurd/ImageCache4ASDK.git", :tag => "#{s.version}" }
   s.source_files  = "ImageCache4ASDK", "ImageCache4ASDK/**/*.{h, swift}"
   s.requires_arc = true
 
-  s.dependency "AsyncDisplayKit", "~> 1.1"
+  s.dependency "AsyncDisplayKit", :git => "https://github.com/facebook/AsyncDisplayKit.git"
 
 end
