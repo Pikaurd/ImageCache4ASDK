@@ -129,11 +129,14 @@ public class ImageCache: NSCache {
         let isResponseOfDequeue: Bool
         if let state = downloadingMap[url] {
             sema = state
-            isResponseOfDequeue = true
+            isResponseOfDequeue = false
         }
         else {
             sema = dispatch_semaphore_create(0)
-            isResponseOfDequeue = false
+            isResponseOfDequeue = true
+            
+            downloadingMap.updateValue(sema, forKey: url)
+            
             dispatch_async(downloadConcurrentQueue, { () -> Void in
                 if let data = NSData(contentsOfURL: url) {
                     if let image = UIImage(data: data) {
@@ -142,19 +145,19 @@ public class ImageCache: NSCache {
                 }
                 dispatch_semaphore_signal(sema)
             });
-            downloadingMap.updateValue(sema, forKey: url)
         }
         
         let timeout = dispatch_time(DISPATCH_TIME_NOW, ImageCache.kDefaultTimeoutLengthInNanoSeconds)
         dispatch_semaphore_wait(sema, timeout);
         
         if isResponseOfDequeue {
-            downloadingMap.removeValueForKey(url) // finished
+            downloadingMap.removeValueForKey(url)
         }
         
         let resultImage = fetchImage(url)
         return resultImage
     }
+    
 }
 
 extension ImageCache: ASImageCacheProtocol {
@@ -210,4 +213,18 @@ private class DownloadState {
         self.task = task
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
