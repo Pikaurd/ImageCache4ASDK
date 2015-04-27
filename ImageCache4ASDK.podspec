@@ -10,6 +10,6 @@ Pod::Spec.new do |s|
   s.source_files  = "ImageCache4ASDK", "ImageCache4ASDK/**/*.{h, swift}"
   s.requires_arc = true
 
-  s.dependency "AsyncDisplayKit", :git => "https://github.com/facebook/AsyncDisplayKit.git"
+  s.dependency "AsyncDisplayKit", "~> 1.1.1"
 
 end
