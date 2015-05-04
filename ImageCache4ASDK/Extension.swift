@@ -8,8 +8,8 @@
 
 import Foundation
 
-func debugLog<T>(x: T, filename: String = __FILE__, line: Int = __LINE__, fn: String = __FUNCTION__) {
+func debugLog<T>(@autoclosure x: () -> T, filename: String = __FILE__, line: Int = __LINE__, fn: String = __FUNCTION__) {
     #if DEBUG
-    println("\(filename.lastPathComponent)(\(line)) \(fn) -> \t\(x)")
+    println("\(filename.lastPathComponent)(\(line)) \(fn) -> \t\(x())")
     #endif
 }

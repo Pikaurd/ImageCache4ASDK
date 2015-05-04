@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "ImageCache4ASDK"
-  s.version      = "0.0.2"
+  s.version      = "0.0.3"
   s.summary      = "Yet another image cache for AsyncDisplayKit"
   s.homepage     = "https://github.com/Pikaurd/ImageCache4ASDK"
   s.license      = "MIT"
