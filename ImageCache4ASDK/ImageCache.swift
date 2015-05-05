@@ -18,12 +18,12 @@ public class ImageCache: NSCache {
     private let fileManager: NSFileManager
     private var downloadingMap: [NSURL : dispatch_semaphore_t]
     
-    required public init(fileManager: NSFileManager) {
+    required public init(appGroupIdentifier: String? = .None) {
         downloadConcurrentQueue = dispatch_queue_create("net.zuijiao.async.DownloadQueue", DISPATCH_QUEUE_CONCURRENT)
         workingConcurrentQueue = dispatch_queue_create("net.zuijiao.async.WorkingQueue", DISPATCH_QUEUE_CONCURRENT)
-        directoryPath = "\(NSHomeDirectory())/Library/Caches/net.zuijiao.ios.asyncdisplay.ImageCache"
         downloadingMap = [ : ]
-        self.fileManager = fileManager
+        fileManager = NSFileManager.defaultManager()
+        directoryPath = ImageCache.generateCacheDirectoryPathByAppGroupIdentifier(fileManager, appGroupIdentifier: appGroupIdentifier)
         
         super.init()
         
@@ -52,16 +52,7 @@ public class ImageCache: NSCache {
     public func clearCache() -> () {
         dispatch_barrier_async(workingConcurrentQueue, { () -> Void in
             self.removeAllObjects()
-            if self.fileManager.fileExistsAtPath(self.directoryPath) {
-                var error: NSError?
-                self.fileManager.removeItemAtPath(self.directoryPath, error: &error)
-                if let error = error {
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        debugLog("error: \(error)")
-                        exit(1)
-                    })
-                }
-            }
+            self.removePath(self.directoryPath)
         })
     }
     
@@ -69,17 +60,20 @@ public class ImageCache: NSCache {
         dispatch_barrier_async(workingConcurrentQueue, { () -> Void in
             self.removeObjectForKey(key)
             let filePath = self.getFilePath(key)
-            if self.fileManager.fileExistsAtPath(filePath) {
-                var error: NSError?
-                self.fileManager.removeItemAtPath(filePath, error: &error)
-                if let error = error {
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        debugLog("error: \(error)")
-                        exit(1)
-                    })
-                }
-            }
+            self.removePath(filePath)
         })
+    }
+    
+    private func removePath(path: String) -> () {
+        if self.fileManager.fileExistsAtPath(path) {
+            var error: NSError?
+            self.fileManager.removeItemAtPath(path, error: &error)
+            if let error = error {
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    debugLog("error: \(error)")
+                })
+            }
+        }
     }
     
     private func persistImage(image: UIImage, withKey key: NSURL) {
@@ -141,6 +135,20 @@ public class ImageCache: NSCache {
         
         let resultImage = fetchImage(url)
         return resultImage
+    }
+    
+    private static func generateCacheDirectoryPathByAppGroupIdentifier(fileManager: NSFileManager, appGroupIdentifier: String?) -> String {
+        let foldername = "/Caches/net.zuijiao.ios.asyncdisplay.ImageCache"
+        let path: String
+        if let appGroupIdentifier = appGroupIdentifier {
+            let url = fileManager.containerURLForSecurityApplicationGroupIdentifier(appGroupIdentifier)
+            let folderUrl = url!.URLByAppendingPathComponent(foldername).absoluteString!
+            path = folderUrl.substringFromIndex(advance(folderUrl.startIndex, 7))
+        }
+        else {
+            path = "\(NSHomeDirectory())/Library\(foldername)"
+        }
+        return path
     }
     
 }

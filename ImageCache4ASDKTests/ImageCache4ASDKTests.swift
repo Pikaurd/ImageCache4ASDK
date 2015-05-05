@@ -33,4 +33,12 @@ class ImageCache4ASDKTests: XCTestCase {
         }
     }
     
+    func testConvertFileUrlToString() {
+        let url = NSURL(fileURLWithPath: "/root/suba/subb/")
+        let folderUrl = url!.URLByAppendingPathComponent("cache").absoluteString!
+        let path = folderUrl.substringFromIndex(advance(folderUrl.startIndex, 7))
+        
+        XCTAssert(path == "/root/suba/subb/cache", "Convert failed")
+    }
+    
 }
