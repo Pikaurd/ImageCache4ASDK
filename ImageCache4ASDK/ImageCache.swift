@@ -138,7 +138,7 @@ public class ImageCache: NSCache {
     }
     
     private static func generateCacheDirectoryPathByAppGroupIdentifier(fileManager: NSFileManager, appGroupIdentifier: String?) -> String {
-        let foldername = "/Caches/net.zuijiao.ios.asyncdisplay.ImageCache"
+        let foldername = "Library/Caches/net.zuijiao.ios.asyncdisplay.ImageCache"
         let path: String
         if let appGroupIdentifier = appGroupIdentifier {
             let url = fileManager.containerURLForSecurityApplicationGroupIdentifier(appGroupIdentifier)
@@ -146,7 +146,7 @@ public class ImageCache: NSCache {
             path = folderUrl.substringFromIndex(advance(folderUrl.startIndex, 7))
         }
         else {
-            path = "\(NSHomeDirectory())/Library\(foldername)"
+            path = "\(NSHomeDirectory())\(foldername)"
         }
         return path
     }
