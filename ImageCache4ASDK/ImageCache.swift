@@ -84,7 +84,7 @@ public class ImageCache: NSCache {
         })
     }
     
-    private func fetchImage(key: NSURL) -> UIImage? {
+    public func fetchImage(key: NSURL) -> UIImage? {
         let resultImage: UIImage?
         if let hittedImage: AnyObject = self.objectForKey(key) { // memory
             resultImage = hittedImage as? UIImage
